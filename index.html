@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Shift Schedule</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: auto;
+            background-color: #f4f4f4;
+        }
+        .schedule-container {
+            width: 90%;
+            max-width: 800px;
+            background: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+            vertical-align: middle;
+        }
+        th {
+            background-color: #f7f7f7;
+        }
+        .yellow {
+            background-color: #fde9b8;
+        }
+        .blue {
+            background-color: #c6e2ff;
+        }
+        .highlight {
+            background-color: #a8d5a5; /* Light green for day shift */
+        }
+        a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+        a:hover {
+            color: #ff0000;
+        }
+    </style>
+</head>
+<body>
+    <div class="schedule-container">
+        <h1>משמרות - 1-7.09</h1>
+        <table>
+            <tr>
+                <th>שבת<br> 7.9</th>
+                <th>שישי<br> 6.9</th>
+                <th>חמישי<br> 5.9</th>
+                <th>רביעי<br> 4.9</th>
+                <th>שלישי<br> 3.9</th>
+                <th>שני<br> 2.9</th>
+                <th>ראשון<br> 1.9</th>
+                <th>משמרות</th>
+            </tr>
+            <tr id="morning-shift-2" class="yellow">
+                <td><a href="https://wa.me/972544542223" target="_blank">יהלי<br> ברנר</a></td>
+                <td><a href="https://wa.me/972526837999" target="_blank">עידן<br> טרביס</a></td>
+                <td><a href="https://wa.me/972523543828" target="_blank">גל<br> ורטהיימר</a></td>
+                <td><a href="https://wa.me/972508668158" target="_blank">דביר<br> עמיתי</a></td>
+                <td><a href="https://wa.me/972542550534" target="_blank">בר<br> שטלמן</a></td>
+                <td><a href="https://wa.me/972508270884" target="_blank">דולב<br> שיליאן</a></td>
+                <td><a href="https://wa.me/972556668848" target="_blank">נועם<br> ידעי</a></td>
+                <td rowspan="1" class="yellow">כפר שמריהו<br> בוקר<br>7:00-19:00</td>
+            </tr>
+            <tr id="night-shift-3" class="yellow">
+                <td><a href="https://wa.me/972542550534" target="_blank">בר<br> שטלמן</a></td>
+        <td><a href="https://wa.me/972533343459" target="_blank">עומר<br> שחם</a></td>
+        <td><a href="https://wa.me/972508668158" target="_blank">דביר<br> עמיתי</a></td>
+        <td><a href="https://wa.me/972508270884" target="_blank">דולב<br> שיליאן</a></td>
+        <td><a href="https://wa.me/972523543828" target="_blank">גל<br> ורטהיימר</a></td>
+        <td><a href="https://wa.me/972523115171" target="_blank">אביחי<br> שושן</a></td>
+        <td><a href="https://wa.me/972526837999" target="_blank">עידן<br> טרביס</a></td>
+        <td rowspan="1" class="yellow">כפר שמריהו<br> לילה<br>19:00-7:00</td>
+            </tr>
+            <tr id="night-shift-4" class="blue">
+                <td><a href="https://wa.me/972502150408" target="_blank">יובל<br> ידעי</a></td>
+        <td><a href="https://wa.me/972547849584" target="_blank">יובל<br> חדד</a></td>
+        <td><a href="https://wa.me/972546686466" target="_blank">הראל<br> דימבורט</a></td>
+        <td><a href="https://wa.me/972547849584" target="_blank">יובל<br> חדד</a></td>
+        <td><a href="https://wa.me/972546686466" target="_blank">הראל<br> דימבורט</a></td>
+        <td><a href="https://wa.me/972528027802" target="_blank">אביב<br> פרימור</a></td>
+        <td><a href="https://wa.me/972502150408" target="_blank">יובל<br> ידעי</a></td>
+        <td rowspan="1" class="blue">מבשרת ציון<br> לילה<br>19:00-7:00</td>
+            </tr>
+        </table>
+<!-- New Table for Next Week's Schedule -->
+
+
+
+    </div>
+
+    <script>
+function highlightCurrentShift() {
+    // Adjust time to the specified time zone
+    const now = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Jerusalem" }));
+    const currentHour = now.getHours();
+    const currentDay = now.getDay(); // Sunday = 0, Monday = 1, ..., Saturday = 6
+
+    // Convert currentDay to match your table's column index
+    const columnIndex = 6 - currentDay;
+
+    // Select the shift rows
+    const morningShiftRow = document.getElementById('morning-shift-2');
+    const nightShift1Row = document.getElementById('night-shift-3');
+    const nightShift2Row = document.getElementById('night-shift-4');
+
+    // Remove any previous highlights
+    const allCells = document.querySelectorAll('td');
+    allCells.forEach(cell => {
+        cell.classList.remove('highlight-day', 'highlight-night');
+    });
+
+    // Highlight the specific cell based on the current time and adjusted day index
+    if (currentHour >= 7 && currentHour < 19) {
+        // Day shift: 7 am - 7 pm (highlight cell in morning shift row)
+        morningShiftRow.children[columnIndex].classList.add('highlight');
+    } else {
+        if (currentHour >= 19) {
+            // Night shift: 7 pm - 7 am (highlight cells in night shift rows)
+            nightShift1Row.children[columnIndex].classList.add('highlight');
+            nightShift2Row.children[columnIndex].classList.add('highlight');
+        } else {
+            // Highlight the previous night shift for the early hours (midnight to 7 am)
+            nightShift1Row.children[(columnIndex + 1) % 7].classList.add('highlight');
+            nightShift2Row.children[(columnIndex + 1) % 7].classList.add('highlight');
+        }
+    }
+}
+
+// Execute the function when the page loads
+window.onload = highlightCurrentShift;
+
+
+    </script>
+</body>
+</html>
