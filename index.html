@@ -5,38 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shift Schedule</title>
     <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        td, th {
-            border: 1px solid black;
-            width: 100px;
-            height: 50px;
-            text-align: center;
-            vertical-align: middle;
-        }
-        th {
-            background-color: #d3d3d3;
-        }
-        td.clickable {
-            background-color: white;
-            cursor: pointer;
-        }
-        td.green {
-            background-color: green;
-            color: white;
-        }
-        td.hidden-content {
-            font-size: 0; /* Makes the text invisible to the user */
-        }
-        .submit-section {
-            margin-top: 20px;
-        }
-        button {
-            margin-top: 10px;
-            padding: 10px 15px;
-        }
+        table { width: 100%; border-collapse: collapse; }
+        td, th { border: 1px solid black; width: 100px; height: 50px; text-align: center; vertical-align: middle; }
+        th { background-color: #d3d3d3; }
+        td.clickable { background-color: white; cursor: pointer; }
+        td.green { background-color: green; color: white; }
+        .submit-section { margin-top: 20px; }
+        button { margin-top: 10px; padding: 10px 15px; }
     </style>
 </head>
 <body>
@@ -53,35 +28,16 @@
             <th>משמרות</th>
         </tr>
         <tr>
-            <td class="clickable hidden-content">יום שבת<br>כפר שמריהו בוקר</td>
-            <td class="clickable hidden-content">יום שישי<br>כפר שמריהו בוקר</td>
-            <td class="clickable hidden-content">יום חמישי<br>כפר שמריהו בוקר</td>
-            <td class="clickable hidden-content">יום רביעי<br>כפר שמריהו בוקר</td>
-            <td class="clickable hidden-content">יום שלישי<br>כפר שמריהו בוקר</td>
-            <td class="clickable hidden-content">יום שני<br>כפר שמריהו בוקר</td>
-            <td class="clickable hidden-content">יום ראשון<br>כפר שמריהו בוקר</td>
+            <td class="clickable">שבת בוקר</td>
+            <td class="clickable">שישי בוקר</td>
+            <td class="clickable">חמישי בוקר</td>
+            <td class="clickable">רביעי בוקר</td>
+            <td class="clickable">שלישי בוקר</td>
+            <td class="clickable">שני בוקר</td>
+            <td class="clickable">ראשון בוקר</td>
             <td rowspan="1" style="background-color: #ffeb99;">כפר שמריהו יום 7-19</td>
         </tr>
-        <tr>
-            <td class="clickable hidden-content">יום שבת<br>כפר שמריהו לילה</td>
-            <td class="clickable hidden-content">יום שישי<br>כפר שמריהו לילה</td>
-            <td class="clickable hidden-content">יום חמישי<br>כפר שמריהו לילה</td>
-            <td class="clickable hidden-content">יום רביעי<br>כפר שמריהו לילה</td>
-            <td class="clickable hidden-content">יום שלישי<br>כפר שמריהו לילה</td>
-            <td class="clickable hidden-content">יום שני<br>כפר שמריהו לילה</td>
-            <td class="clickable hidden-content">יום ראשון<br>כפר שמריהו לילה</td>
-            <td rowspan="1" style="background-color: #ffeb99;">כפר שמריהו לילה 19-7</td>
-        </tr>
-        <tr>
-            <td class="clickable hidden-content">יום שבת<br>מבשרת לילה</td>
-            <td class="clickable hidden-content">יום שישי<br>מבשרת לילה</td>
-            <td class="clickable hidden-content">יום חמישי<br>מבשרת לילה</td>
-            <td class="clickable hidden-content">יום רביעי<br>מבשרת לילה</td>
-            <td class="clickable hidden-content">יום שלישי<br>מבשרת לילה</td>
-            <td class="clickable hidden-content">יום שני<br>מבשרת לילה</td>
-            <td class="clickable hidden-content">יום ראשון<br>מבשרת לילה</td>
-            <td rowspan="1" style="background-color: #cce5ff;">מבשרת ציון 19-7</td>
-        </tr>
+        <!-- More rows as needed -->
     </table>
 
     <div class="submit-section">
@@ -92,49 +48,46 @@
         </form>
     </div>
 
-    <!-- Include EmailJS SDK -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3.5.0/dist/email.min.js"></script>
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script>
+        const CLIENT_ID = '312907888554-grn3eeg85q5oc9vocpv3b2ok4flim6c9.apps.googleusercontent.com';
+        const API_KEY = 'AIzaSyBzjT06dQutjTe2PYv-rSIkZ9NTjFX1290';
+        const SPREADSHEET_ID = '1QhULkTx616YtArCdnBTENKwWQoQQLWRFf_m4fXf1Z0M';
+        const RANGE = 'Sheet1!Z1';  // Change this to your desired range
 
-    <script type="text/javascript">
-        // Initialize EmailJS with your public key
-        (function() {
-            emailjs.init("W3ec09hnj7zvoLl4q"); // Replace with your actual user ID from EmailJS
-        })();
+        function authenticate() {
+            return gapi.auth2.getAuthInstance()
+                .signIn({scope: "https://www.googleapis.com/auth/spreadsheets"});
+        }
 
-        // Handle table cell clicks
-        document.querySelectorAll('.clickable').forEach(cell => {
-            cell.addEventListener('click', function() {
-                this.classList.toggle('green');
+        function loadClient() {
+            gapi.client.setApiKey(API_KEY);
+            return gapi.client.load("https://sheets.googleapis.com/$discovery/rest?version=v4")
+                .then(function() { console.log("GAPI client loaded for API"); },
+                      function(err) { console.error("Error loading GAPI client for API", err); });
+        }
+
+        document.getElementById('submitForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            authenticate().then(loadClient).then(() => {
+                const name = document.getElementById('name').value;
+                const clickedCells = [...document.querySelectorAll('.clickable.green')].map(cell => cell.textContent);
+                const data = [[name, ...clickedCells]];
+                
+                return gapi.client.sheets.spreadsheets.values.append({
+                    spreadsheetId: SPREADSHEET_ID,
+                    range: RANGE,
+                    valueInputOption: 'RAW',
+                    resource: { values: data }
+                }).then(response => {
+                    console.log(`${response.result.updates.updatedCells} cells appended.`);
+                    alert('Data sent to Google Sheets!');
+                }, err => console.error("Execute error", err));
             });
         });
 
-        // Get clicked cells' text content
-        function getClickedCellsText() {
-            let clickedCells = [];
-            document.querySelectorAll('.clickable.green').forEach(cell => {
-                // The font-size is set to 0 so users don't see this text, but it's still there for email purposes
-                clickedCells.push(cell.innerHTML.trim());
-            });
-            return clickedCells.join('\n');
-        }
-
-        // Handle form submission
-        document.getElementById('submitForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            let name = document.getElementById('name').value;
-            let clickedCellsText = getClickedCellsText();
-
-            // Send the email via EmailJS
-            emailjs.send("service_f7vkg2s", "template_g4t0c0l", {
-                from_name: name,
-                message: clickedCellsText  // Text content of clicked cells
-            }).then(function(response) {
-                alert("הטבלה נשלחה בהצלחה!");
-            }, function(error) {
-                console.error('Failed to send email:', error);  // Log detailed error
-                alert("שגיאה בשליחת המייל: " + JSON.stringify(error));  // Show detailed error info
-            });
+        gapi.load("client:auth2", function() {
+            gapi.auth2.init({client_id: CLIENT_ID});
         });
     </script>
 </body>
