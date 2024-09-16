@@ -90,17 +90,35 @@
             });
         });
 
+        // Extract table HTML with inline CSS
+        function getTableWithStyles() {
+            let table = document.getElementById('shiftTable');
+            let clonedTable = table.cloneNode(true);
+
+            // Inline the styles for each cell
+            clonedTable.querySelectorAll('td').forEach(cell => {
+                let styles = window.getComputedStyle(cell);
+                if (styles.backgroundColor === 'rgb(0, 128, 0)') { // Check for green color
+                    cell.setAttribute('style', 'background-color:green;color:white;');
+                } else {
+                    cell.setAttribute('style', 'background-color:white;color:black;');
+                }
+            });
+
+            return clonedTable.outerHTML; // Return the table's HTML
+        }
+
         // Handle form submission
         document.getElementById('submitForm').addEventListener('submit', function(event) {
             event.preventDefault();
 
             let name = document.getElementById('name').value;
-            let tableHtml = document.getElementById('shiftTable').outerHTML;  // Get the table as HTML
+            let tableHtml = getTableWithStyles(); // Get table HTML with inline styles
 
-            // Send the email via EmailJS with HTML content
+            // Send the email via EmailJS
             emailjs.send("service_f7vkg2s", "template_g4t0c0l", {
                 from_name: name,
-                message_html: tableHtml  // Use message_html to preserve HTML content
+                message: tableHtml   // Send the table HTML
             }).then(function(response) {
                 alert("הטבלה נשלחה בהצלחה!");
             }, function(error) {
