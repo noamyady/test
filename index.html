@@ -5,13 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shift Schedule</title>
     <style>
-        table { width: 100%; border-collapse: collapse; }
-        td, th { border: 1px solid black; width: 100px; height: 50px; text-align: center; vertical-align: middle; }
-        th { background-color: #d3d3d3; }
-        td.clickable { background-color: white; cursor: pointer; }
-        td.green { background-color: green; color: white; }
-        .submit-section { margin-top: 20px; }
-        button { margin-top: 10px; padding: 10px 15px; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        td, th {
+            border: 1px solid black;
+            width: 100px;
+            height: 50px;
+            text-align: center;
+            vertical-align: middle;
+        }
+        th {
+            background-color: #d3d3d3;
+        }
+        td.clickable {
+            background-color: white;
+            cursor: pointer;
+        }
+        td.green {
+            background-color: green;
+            color: white;
+        }
+        .submit-section {
+            margin-top: 20px;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px 15px;
+        }
     </style>
 </head>
 <body>
@@ -37,7 +59,26 @@
             <td class="clickable">ראשון בוקר</td>
             <td rowspan="1" style="background-color: #ffeb99;">כפר שמריהו יום 7-19</td>
         </tr>
-        <!-- More rows as needed -->
+        <tr>
+            <td class="clickable">שבת לילה</td>
+            <td class="clickable">שישי לילה</td>
+            <td class="clickable">חמישי לילה</td>
+            <td class="clickable">רביעי לילה</td>
+            <td class="clickable">שלישי לילה</td>
+            <td class="clickable">שני לילה</td>
+            <td class="clickable">ראשון לילה</td>
+            <td rowspan="1" style="background-color: #ffeb99;">כפר שמריהו לילה 19-7</td>
+        </tr>
+        <tr>
+            <td class="clickable">שבת לילה מבשרת</td>
+            <td class="clickable">שישי לילה מבשרת</td>
+            <td class="clickable">חמישי לילה מבשרת</td>
+            <td class="clickable">רביעי לילה מבשרת</td>
+            <td class="clickable">שלישי לילה מבשרת</td>
+            <td class="clickable">שני לילה מבשרת</td>
+            <td class="clickable">ראשון לילה מבשרת</td>
+            <td rowspan="1" style="background-color: #cce5ff;">מבשרת ציון 19-7</td>
+        </tr>
     </table>
 
     <div class="submit-section">
@@ -48,46 +89,68 @@
         </form>
     </div>
 
+    <!-- Load Google API -->
     <script src="https://apis.google.com/js/api.js"></script>
     <script>
-        const CLIENT_ID = '312907888554-grn3eeg85q5oc9vocpv3b2ok4flim6c9.apps.googleusercontent.com';
-        const API_KEY = 'AIzaSyBzjT06dQutjTe2PYv-rSIkZ9NTjFX1290';
-        const SPREADSHEET_ID = '18P7Bg2z28XshDAe4w5xvMAXPF-1v4uAOhDa9VOod2vM';
-        const RANGE = 'Sheet1!Z1';  // Change this to your desired range
+        const API_KEY = 'AIzaSyBzjT06dQutjTe2PYv-rSIkZ9NTjFX1290';  // Replace with your API key
+        const SPREADSHEET_ID = '18P7Bg2z28XshDAe4w5xvMAXPF-1v4uAOhDa9VOod2vM'; // Replace with the ID of your spreadsheet
+        const RANGE = 'Sheet1!A1';  // Adjust the range to where you want the data to go in the Google Sheet
 
+        // Load the Google API client and authenticate
         function authenticate() {
             return gapi.auth2.getAuthInstance()
-                .signIn({scope: "https://www.googleapis.com/auth/spreadsheets"});
+                .signIn({scope: "https://www.googleapis.com/auth/spreadsheets"})
+                .then(() => console.log("Sign-in successful"),
+                      err => console.error("Error signing in", err));
         }
 
         function loadClient() {
             gapi.client.setApiKey(API_KEY);
             return gapi.client.load("https://sheets.googleapis.com/$discovery/rest?version=v4")
-                .then(function() { console.log("GAPI client loaded for API"); },
-                      function(err) { console.error("Error loading GAPI client for API", err); });
+                .then(() => console.log("GAPI client loaded for API"),
+                      err => console.error("Error loading GAPI client", err));
         }
 
+        // Handle the table cell clicks to toggle green color
+        document.querySelectorAll('.clickable').forEach(cell => {
+            cell.addEventListener('click', function() {
+                this.classList.toggle('green');
+            });
+        });
+
+        // Collect clicked cells
+        function getClickedCells() {
+            let clickedCells = [];
+            document.querySelectorAll('.clickable.green').forEach(cell => {
+                clickedCells.push(cell.textContent.trim());
+            });
+            return clickedCells;
+        }
+
+        // Handle form submission
         document.getElementById('submitForm').addEventListener('submit', function(event) {
             event.preventDefault();
+
+            let name = document.getElementById('name').value;
+            let clickedCells = getClickedCells();
+            let data = [[name, ...clickedCells]];
+
             authenticate().then(loadClient).then(() => {
-                const name = document.getElementById('name').value;
-                const clickedCells = [...document.querySelectorAll('.clickable.green')].map(cell => cell.textContent);
-                const data = [[name, ...clickedCells]];
-                
                 return gapi.client.sheets.spreadsheets.values.append({
                     spreadsheetId: SPREADSHEET_ID,
                     range: RANGE,
-                    valueInputOption: 'RAW',
-                    resource: { values: data }
+                    valueInputOption: "RAW",
+                    resource: {values: data}
                 }).then(response => {
                     console.log(`${response.result.updates.updatedCells} cells appended.`);
                     alert('Data sent to Google Sheets!');
-                }, err => console.error("Execute error", err));
+                }, err => console.error("Error appending data", err));
             });
         });
 
         gapi.load("client:auth2", function() {
-            gapi.auth2.init({client_id: CLIENT_ID});
+            gapi.auth2.init({client_id: '312907888554-grn3eeg85q5oc9vocpv3b2ok4flim6c9.apps.googleusercontent.com
+.apps.googleusercontent.com'});
         });
     </script>
 </body>
