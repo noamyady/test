@@ -74,39 +74,38 @@
         </form>
     </div>
 
-    <!-- Include EmailJS SDK -->
-    <script type="text/javascript" src="https://cdn.emailjs.com/sdk/3.5.0/email.min.js"></script>
+    <!-- Corrected EmailJS SDK Link -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3.5.0/dist/email.min.js"></script>
 
     <script type="text/javascript">
-        // Wait for the DOM to load
-        document.addEventListener("DOMContentLoaded", function() {
-            // Initialize EmailJS with your public key
+        // Initialize EmailJS with your public key
+        (function() {
             emailjs.init("W3ec09hnj7zvoLl4q"); // Replace with your actual user ID from EmailJS
+        })();
 
-            // Handle table cell clicks
-            document.querySelectorAll('.clickable').forEach(cell => {
-                cell.addEventListener('click', function() {
-                    this.classList.toggle('green');
-                });
+        // Handle table cell clicks
+        document.querySelectorAll('.clickable').forEach(cell => {
+            cell.addEventListener('click', function() {
+                this.classList.toggle('green');
             });
+        });
 
-            // Handle form submission
-            document.getElementById('submitForm').addEventListener('submit', function(event) {
-                event.preventDefault(); // Prevent page reload
+        // Handle form submission
+        document.getElementById('submitForm').addEventListener('submit', function(event) {
+            event.preventDefault();
 
-                let name = document.getElementById('name').value;
-                let tableHtml = document.getElementById('shiftTable').outerHTML;
+            let name = document.getElementById('name').value;
+            let tableHtml = document.getElementById('shiftTable').outerHTML;
 
-                // Send the email via EmailJS
-                emailjs.send("service_f7vkg2s", "template_g4t0c0l", {
-                    from_name: name,     // User's name
-                    message: tableHtml   // Table HTML content
-                }).then(function(response) {
-                    alert("הטבלה נשלחה בהצלחה!");
-                }, function(error) {
-                    console.error('Failed to send email:', error);  // Log detailed error
-                    alert("שגיאה בשליחת המייל: " + JSON.stringify(error));  // Show detailed error info
-                });
+            // Send the email via EmailJS
+            emailjs.send("service_f7vkg2s", "template_g4t0c0l", {
+                from_name: name,     // User's name
+                message: tableHtml   // Table HTML content
+            }).then(function(response) {
+                alert("הטבלה נשלחה בהצלחה!");
+            }, function(error) {
+                console.error('Failed to send email:', error);  // Log detailed error
+                alert("שגיאה בשליחת המייל: " + JSON.stringify(error));  // Show detailed error info
             });
         });
     </script>
