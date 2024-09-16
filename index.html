@@ -9,7 +9,6 @@
             width: 100%;
             border-collapse: collapse;
         }
-
         td, th {
             border: 1px solid black;
             width: 100px;
@@ -17,25 +16,20 @@
             text-align: center;
             vertical-align: middle;
         }
-
         th {
             background-color: #d3d3d3;
         }
-
         td.clickable {
             background-color: white;
             cursor: pointer;
         }
-
         td.green {
             background-color: green;
             color: white;
         }
-
         .submit-section {
             margin-top: 20px;
         }
-
         button {
             margin-top: 10px;
             padding: 10px 15px;
@@ -58,17 +52,17 @@
         <tr>
             <td class="clickable"></td><td class="clickable"></td><td class="clickable"></td>
             <td class="clickable"></td><td class="clickable"></td><td class="clickable"></td>
-            <td class="clickable"></td><td rowspan="2" style="background-color: #ffeb99;">כפר שמריהו יום 7-19</td>
+            <td class="clickable"></td><td rowspan="1" style="background-color: #ffeb99;">כפר שמריהו יום 7-19</td>
         </tr>
         <tr>
             <td class="clickable"></td><td class="clickable"></td><td class="clickable"></td>
             <td class="clickable"></td><td class="clickable"></td><td class="clickable"></td>
-            <td class="clickable"></td><td rowspan="2" style="background-color: #ffeb99;">כפר שמריהו לילה 19-7</td>
+            <td class="clickable"></td><td rowspan="1" style="background-color: #ffeb99;">כפר שמריהו לילה 19-7</td>
         </tr>
         <tr>
             <td class="clickable"></td><td class="clickable"></td><td class="clickable"></td>
             <td class="clickable"></td><td class="clickable"></td><td class="clickable"></td>
-            <td class="clickable"></td><td style="background-color: #cce5ff;">מבשרת ציון 19-7</td>
+            <td class="clickable"></td><td rowspan="1" style="background-color: #cce5ff;">מבשרת ציון 19-7</td>
         </tr>
     </table>
 
@@ -80,13 +74,13 @@
         </form>
     </div>
 
-    <!-- Updated EmailJS SDK -->
-    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <!-- Include EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.emailjs.com/sdk/3.5.0/email.min.js"></script>
 
     <script type="text/javascript">
         // Initialize EmailJS with your public key
         (function() {
-            emailjs.init("W3ec09hnj7zvoLl4q"); // Replace YOUR_PUBLIC_KEY with your actual Public Key
+            emailjs.init("W3ec09hnj7zvoLl4q"); // Replace with your actual user ID from EmailJS
         })();
 
         // Handle table cell clicks
