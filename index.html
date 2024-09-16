@@ -92,9 +92,9 @@
     <!-- Load Google API -->
     <script src="https://apis.google.com/js/api.js"></script>
     <script>
-        const API_KEY = 'AIzaSyBzjT06dQutjTe2PYv-rSIkZ9NTjFX1290';  // Replace with your API key
-        const SPREADSHEET_ID = '18P7Bg2z28XshDAe4w5xvMAXPF-1v4uAOhDa9VOod2vM'; // Replace with the ID of your spreadsheet
-        const RANGE = 'Sheet1!A1';  // Adjust the range to where you want the data to go in the Google Sheet
+        const API_KEY = 'AIzaSyBzjT06dQutjTe2PYv-rSIkZ9NTjFX1290';  // Your API key
+        const SPREADSHEET_ID = '18P7Bg2z28XshDAe4w5xvMAXPF-1v4uAOhDa9VOod2vM'; // Your Spreadsheet ID
+        const RANGE = 'Sheet1!A1';  // The starting cell in your sheet where data will be appended
 
         // Load the Google API client and authenticate
         function authenticate() {
@@ -149,8 +149,7 @@
         });
 
         gapi.load("client:auth2", function() {
-            gapi.auth2.init({client_id: '312907888554-grn3eeg85q5oc9vocpv3b2ok4flim6c9.apps.googleusercontent.com
-.apps.googleusercontent.com'});
+            gapi.auth2.init({client_id: '312907888554-grn3eeg85q5oc9vocpv3b2ok4flim6c9.apps.googleusercontent.com'});
         });
     </script>
 </body>
