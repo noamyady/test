@@ -90,31 +90,17 @@
             });
         });
 
-        // Convert table to plain text
-        function tableToText() {
-            let table = document.getElementById('shiftTable');
-            let text = '';
-            for (let row of table.rows) {
-                for (let cell of row.cells) {
-                    text += cell.textContent || ' ';
-                    text += '\t'; // Tab space between cells
-                }
-                text += '\n'; // New line after each row
-            }
-            return text;
-        }
-
         // Handle form submission
         document.getElementById('submitForm').addEventListener('submit', function(event) {
             event.preventDefault();
 
             let name = document.getElementById('name').value;
-            let tableText = tableToText();
+            let tableHtml = document.getElementById('shiftTable').outerHTML;  // Get the table as HTML
 
-            // Send the email via EmailJS
+            // Send the email via EmailJS with HTML content
             emailjs.send("service_f7vkg2s", "template_g4t0c0l", {
                 from_name: name,
-                message: tableText  // Plain text version of the table
+                message_html: tableHtml  // Use message_html to preserve HTML content
             }).then(function(response) {
                 alert("הטבלה נשלחה בהצלחה!");
             }, function(error) {
