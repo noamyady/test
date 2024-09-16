@@ -55,7 +55,6 @@
             <th>ראשון</th>
             <th>משמרות</th>
         </tr>
-        <!-- Empty rows with clickable cells -->
         <tr>
             <td class="clickable"></td><td class="clickable"></td><td class="clickable"></td>
             <td class="clickable"></td><td class="clickable"></td><td class="clickable"></td>
@@ -81,10 +80,13 @@
         </form>
     </div>
 
+    <!-- Include EmailJS library -->
     <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2.4.1/dist/email.min.js"></script>
+
     <script type="text/javascript">
-        (function(){
-            emailjs.init("W3ec09hnj7zvoLl4q");
+        // Initialize EmailJS with your public key
+        (function() {
+            emailjs.init("W3ec09hnj7zvoLl4q"); // Replace with your Public Key
         })();
 
         // Handle table cell clicks
@@ -103,12 +105,13 @@
 
             // Send the email via EmailJS
             emailjs.send("service_f7vkg2s", "template_g4t0c0l", {
-                name: name,
-                message: tableHtml
+                from_name: name,     // User's name
+                message: tableHtml   // Table HTML content
             }).then(function(response) {
                 alert("הטבלה נשלחה בהצלחה!");
             }, function(error) {
-                alert("שגיאה בשליחת המייל: " + error);
+                console.error('Failed to send email:', error);  // Log detailed error
+                alert("שגיאה בשליחת המייל: " + JSON.stringify(error));  // Show detailed error info
             });
         });
     </script>
