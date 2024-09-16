@@ -27,6 +27,9 @@
             background-color: green;
             color: white;
         }
+        td.hidden-content {
+            font-size: 0; /* Makes the text invisible to the user */
+        }
         .submit-section {
             margin-top: 20px;
         }
@@ -50,33 +53,33 @@
             <th>משמרות</th>
         </tr>
         <tr>
-            <td class="clickable">יום שבת<br>כפר שמריהו בוקר</td>
-            <td class="clickable">יום שישי<br>כפר שמריהו בוקר</td>
-            <td class="clickable">יום חמישי<br>כפר שמריהו בוקר</td>
-            <td class="clickable">יום רביעי<br>כפר שמריהו בוקר</td>
-            <td class="clickable">יום שלישי<br>כפר שמריהו בוקר</td>
-            <td class="clickable">יום שני<br>כפר שמריהו בוקר</td>
-            <td class="clickable">יום ראשון<br>כפר שמריהו בוקר</td>
+            <td class="clickable hidden-content">יום שבת<br>כפר שמריהו בוקר</td>
+            <td class="clickable hidden-content">יום שישי<br>כפר שמריהו בוקר</td>
+            <td class="clickable hidden-content">יום חמישי<br>כפר שמריהו בוקר</td>
+            <td class="clickable hidden-content">יום רביעי<br>כפר שמריהו בוקר</td>
+            <td class="clickable hidden-content">יום שלישי<br>כפר שמריהו בוקר</td>
+            <td class="clickable hidden-content">יום שני<br>כפר שמריהו בוקר</td>
+            <td class="clickable hidden-content">יום ראשון<br>כפר שמריהו בוקר</td>
             <td rowspan="1" style="background-color: #ffeb99;">כפר שמריהו יום 7-19</td>
         </tr>
         <tr>
-            <td class="clickable">יום שבת<br>כפר שמריהו לילה</td>
-            <td class="clickable">יום שישי<br>כפר שמריהו לילה</td>
-            <td class="clickable">יום חמישי<br>כפר שמריהו לילה</td>
-            <td class="clickable">יום רביעי<br>כפר שמריהו לילה</td>
-            <td class="clickable">יום שלישי<br>כפר שמריהו לילה</td>
-            <td class="clickable">יום שני<br>כפר שמריהו לילה</td>
-            <td class="clickable">יום ראשון<br>כפר שמריהו לילה</td>
+            <td class="clickable hidden-content">יום שבת<br>כפר שמריהו לילה</td>
+            <td class="clickable hidden-content">יום שישי<br>כפר שמריהו לילה</td>
+            <td class="clickable hidden-content">יום חמישי<br>כפר שמריהו לילה</td>
+            <td class="clickable hidden-content">יום רביעי<br>כפר שמריהו לילה</td>
+            <td class="clickable hidden-content">יום שלישי<br>כפר שמריהו לילה</td>
+            <td class="clickable hidden-content">יום שני<br>כפר שמריהו לילה</td>
+            <td class="clickable hidden-content">יום ראשון<br>כפר שמריהו לילה</td>
             <td rowspan="1" style="background-color: #ffeb99;">כפר שמריהו לילה 19-7</td>
         </tr>
         <tr>
-            <td class="clickable">יום שבת<br>מבשרת לילה</td>
-            <td class="clickable">יום שישי<br>מבשרת לילה</td>
-            <td class="clickable">יום חמישי<br>מבשרת לילה</td>
-            <td class="clickable">יום רביעי<br>מבשרת לילה</td>
-            <td class="clickable">יום שלישי<br>מבשרת לילה</td>
-            <td class="clickable">יום שני<br>מבשרת לילה</td>
-            <td class="clickable">יום ראשון<br>מבשרת לילה</td>
+            <td class="clickable hidden-content">יום שבת<br>מבשרת לילה</td>
+            <td class="clickable hidden-content">יום שישי<br>מבשרת לילה</td>
+            <td class="clickable hidden-content">יום חמישי<br>מבשרת לילה</td>
+            <td class="clickable hidden-content">יום רביעי<br>מבשרת לילה</td>
+            <td class="clickable hidden-content">יום שלישי<br>מבשרת לילה</td>
+            <td class="clickable hidden-content">יום שני<br>מבשרת לילה</td>
+            <td class="clickable hidden-content">יום ראשון<br>מבשרת לילה</td>
             <td rowspan="1" style="background-color: #cce5ff;">מבשרת ציון 19-7</td>
         </tr>
     </table>
@@ -109,6 +112,7 @@
         function getClickedCellsText() {
             let clickedCells = [];
             document.querySelectorAll('.clickable.green').forEach(cell => {
+                // The font-size is set to 0 so users don't see this text, but it's still there for email purposes
                 clickedCells.push(cell.innerHTML.trim());
             });
             return clickedCells.join('\n');
