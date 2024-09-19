@@ -27,6 +27,9 @@
             background-color: green;
             color: white;
         }
+        td.hidden-content {
+            font-size: 0; /* Makes the text invisible to the user */
+        }
         .submit-section {
             margin-top: 20px;
         }
@@ -50,33 +53,33 @@
             <th>משמרות</th>
         </tr>
         <tr>
-            <td class="clickable">שבת בוקר</td>
-            <td class="clickable">שישי בוקר</td>
-            <td class="clickable">חמישי בוקר</td>
-            <td class="clickable">רביעי בוקר</td>
-            <td class="clickable">שלישי בוקר</td>
-            <td class="clickable">שני בוקר</td>
-            <td class="clickable">ראשון בוקר</td>
+            <td class="clickable hidden-content">יום שבת<br>כפר שמריהו בוקר</td>
+            <td class="clickable hidden-content">יום שישי<br>כפר שמריהו בוקר</td>
+            <td class="clickable hidden-content">יום חמישי<br>כפר שמריהו בוקר</td>
+            <td class="clickable hidden-content">יום רביעי<br>כפר שמריהו בוקר</td>
+            <td class="clickable hidden-content">יום שלישי<br>כפר שמריהו בוקר</td>
+            <td class="clickable hidden-content">יום שני<br>כפר שמריהו בוקר</td>
+            <td class="clickable hidden-content">יום ראשון<br>כפר שמריהו בוקר</td>
             <td rowspan="1" style="background-color: #ffeb99;">כפר שמריהו יום 7-19</td>
         </tr>
         <tr>
-            <td class="clickable">שבת לילה</td>
-            <td class="clickable">שישי לילה</td>
-            <td class="clickable">חמישי לילה</td>
-            <td class="clickable">רביעי לילה</td>
-            <td class="clickable">שלישי לילה</td>
-            <td class="clickable">שני לילה</td>
-            <td class="clickable">ראשון לילה</td>
+            <td class="clickable hidden-content">יום שבת<br>כפר שמריהו לילה</td>
+            <td class="clickable hidden-content">יום שישי<br>כפר שמריהו לילה</td>
+            <td class="clickable hidden-content">יום חמישי<br>כפר שמריהו לילה</td>
+            <td class="clickable hidden-content">יום רביעי<br>כפר שמריהו לילה</td>
+            <td class="clickable hidden-content">יום שלישי<br>כפר שמריהו לילה</td>
+            <td class="clickable hidden-content">יום שני<br>כפר שמריהו לילה</td>
+            <td class="clickable hidden-content">יום ראשון<br>כפר שמריהו לילה</td>
             <td rowspan="1" style="background-color: #ffeb99;">כפר שמריהו לילה 19-7</td>
         </tr>
         <tr>
-            <td class="clickable">שבת לילה מבשרת</td>
-            <td class="clickable">שישי לילה מבשרת</td>
-            <td class="clickable">חמישי לילה מבשרת</td>
-            <td class="clickable">רביעי לילה מבשרת</td>
-            <td class="clickable">שלישי לילה מבשרת</td>
-            <td class="clickable">שני לילה מבשרת</td>
-            <td class="clickable">ראשון לילה מבשרת</td>
+            <td class="clickable hidden-content">יום שבת<br>מבשרת לילה</td>
+            <td class="clickable hidden-content">יום שישי<br>מבשרת לילה</td>
+            <td class="clickable hidden-content">יום חמישי<br>מבשרת לילה</td>
+            <td class="clickable hidden-content">יום רביעי<br>מבשרת לילה</td>
+            <td class="clickable hidden-content">יום שלישי<br>מבשרת לילה</td>
+            <td class="clickable hidden-content">יום שני<br>מבשרת לילה</td>
+            <td class="clickable hidden-content">יום ראשון<br>מבשרת לילה</td>
             <td rowspan="1" style="background-color: #cce5ff;">מבשרת ציון 19-7</td>
         </tr>
     </table>
@@ -89,72 +92,58 @@
         </form>
     </div>
 
-    <!-- Load the GIS library -->
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script>
-        const API_KEY = 'AIzaSyBzjT06dQutjTe2PYv-rSIkZ9NTjFX1290';
-        const SPREADSHEET_ID = '18P7Bg2z28XshDAe4w5xvMAXPF-1v4uAOhDa9VOod2vM';
-        const RANGE = 'Sheet1!A1';
-
-        // Google Identity Services API
-        function handleCredentialResponse(response) {
-            console.log("Encoded JWT ID token: " + response.credential);
-
-            gapi.client.setApiKey(API_KEY);
-            gapi.client.load("sheets", "v4", function() {
-                console.log("GAPI client loaded for API");
-            });
-
-            // Handle form submission
-            document.getElementById('submitForm').addEventListener('submit', function(event) {
-                event.preventDefault();
-                let name = document.getElementById('name').value;
-                let clickedCells = getClickedCells();
-                let data = [[name, ...clickedCells]];
-
-                gapi.client.sheets.spreadsheets.values.append({
-                    spreadsheetId: SPREADSHEET_ID,
-                    range: RANGE,
-                    valueInputOption: "RAW",
-                    resource: { values: data }
-                }).then(function(response) {
-                    console.log(`${response.result.updates.updatedCells} cells appended.`);
-                    alert('Data sent to Google Sheets!');
-                }, function(err) {
-                    console.error("Error: " + err.result.error.message);
-                });
-            });
-        }
-
-        window.onload = function() {
-            google.accounts.id.initialize({
-                client_id: '312907888554-grn3eeg85q5oc9vocpv3b2ok4flim6c9.apps.googleusercontent.com',
-                callback: handleCredentialResponse
-            });
-
-            google.accounts.id.renderButton(
-                document.getElementById("submitForm"),
-                { theme: "outline", size: "large" }  // customization attributes
-            );
-
-            google.accounts.id.prompt();  // also display the One Tap dialog
-        };
-
-        // Handle the table cell clicks to toggle green color
+        // Handle table cell clicks
         document.querySelectorAll('.clickable').forEach(cell => {
             cell.addEventListener('click', function() {
                 this.classList.toggle('green');
             });
         });
 
-        // Collect clicked cells
-        function getClickedCells() {
+        // Get clicked cells' text content
+        function getClickedCellsText() {
             let clickedCells = [];
             document.querySelectorAll('.clickable.green').forEach(cell => {
-                clickedCells.push(cell.textContent.trim());
+                clickedCells.push(cell.innerHTML.trim());
             });
             return clickedCells;
         }
+
+        // Handle form submission
+        document.getElementById('submitForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            let name = document.getElementById('name').value;
+            let clickedCellsText = getClickedCellsText();
+
+            // Create JSON data
+            let submission = {
+                name: name,
+                selectedShifts: clickedCellsText
+            };
+
+            // Send the data to GitHub Actions via POST request
+            fetch('https://api.github.com/repos/noamyady/test/dispatches', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/vnd.github.v3+json',
+                    'Authorization': 'Bearer YOUR_GITHUB_TOKEN',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    event_type: 'store_submission',
+                    client_payload: submission
+                })
+            }).then(response => {
+                if (response.ok) {
+                    alert('Data submitted successfully!');
+                } else {
+                    alert('Failed to submit data.');
+                }
+            }).catch(error => {
+                console.error('Error:', error);
+            });
+        });
     </script>
 </body>
 </html>
