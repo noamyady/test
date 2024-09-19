@@ -127,7 +127,7 @@
                 method: 'POST',
                 headers: {
                     'Accept': 'application/vnd.github.v3+json',
-                    'Authorization': 'Bearer YOUR_GITHUB_TOKEN',
+                    'Authorization': 'Bearer {{ secrets.PERSONAL_ACCESS_TOKEN }}',
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
