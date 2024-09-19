@@ -5,23 +5,38 @@ on:
     types: [store_submission]
 
 jobs:
-  store-data:
+  storeData:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Read client payload
+        run: |
+          echo "${{ github.event.client_payload.name }}" >> submission.txt
+          echo "${{ github.event.client_payload.shifts }}" >> submission.txt
+          
       - name: Update submissions.json
         run: |
-          SUBMISSION_DATA=$(jq -n --arg name "${{ github.event.client_payload.name }}" --argjson shifts "${{ toJSON(github.event.client_payload.selectedShifts) }}" '{name: $name, selectedShifts: $shifts}')
+          submissions_file="submissions.json"
+          name="${{ github.event.client_payload.name }}"
+          shifts="${{ github.event.client_payload.shifts }}"
           
-          # Append the new submission to submissions.json
-          jq ". + [$SUBMISSION_DATA]" submissions.json > tmp.json && mv tmp.json submissions.json
+          # Create submissions.json if it doesn't exist
+          if [ ! -f "$submissions_file" ]; then
+            echo '[]' > $submissions_file
+          fi
 
-      - name: Commit changes
+          # Append new data to submissions.json
+          updated_json=$(jq --arg name "$name" --argjson shifts "$shifts" '. + [{name: $name, shifts: $shifts}]' $submissions_file)
+          echo "$updated_json" > $submissions_file
+
+      - name: Commit and push changes
         run: |
-          git config --global user.name 'GitHub Actions'
-          git config --global user.email 'actions@github.com'
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
           git add submissions.json
-          git commit -m "Add new submission"
+          git commit -m "Add new submission from ${{ github.event.client_payload.name }}"
           git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
