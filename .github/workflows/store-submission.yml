@@ -1,0 +1,27 @@
+name: Store Submission
+
+on:
+  repository_dispatch:
+    types: [store_submission]
+
+jobs:
+  store-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Update submissions.json
+        run: |
+          SUBMISSION_DATA=$(jq -n --arg name "${{ github.event.client_payload.name }}" --argjson shifts "${{ toJSON(github.event.client_payload.selectedShifts) }}" '{name: $name, selectedShifts: $shifts}')
+          
+          # Append the new submission to submissions.json
+          jq ". + [$SUBMISSION_DATA]" submissions.json > tmp.json && mv tmp.json submissions.json
+
+      - name: Commit changes
+        run: |
+          git config --global user.name 'GitHub Actions'
+          git config --global user.email 'actions@github.com'
+          git add submissions.json
+          git commit -m "Add new submission"
+          git push
