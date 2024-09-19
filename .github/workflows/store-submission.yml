@@ -14,13 +14,13 @@ jobs:
       - name: Read client payload
         run: |
           echo "${{ github.event.client_payload.name }}" >> submission.txt
-          echo "${{ github.event.client_payload.shifts }}" >> submission.txt
-          
+          echo "${{ github.event.client_payload.selectedShifts }}" >> submission.txt
+
       - name: Update submissions.json
         run: |
           submissions_file="submissions.json"
           name="${{ github.event.client_payload.name }}"
-          shifts="${{ github.event.client_payload.shifts }}"
+          shifts="${{ github.event.client_payload.selectedShifts }}"
           
           # Create submissions.json if it doesn't exist
           if [ ! -f "$submissions_file" ]; then
@@ -28,7 +28,7 @@ jobs:
           fi
 
           # Append new data to submissions.json
-          updated_json=$(jq --arg name "$name" --argjson shifts "$shifts" '. + [{name: $name, shifts: $shifts}]' $submissions_file)
+          updated_json=$(jq --arg name "$name" --argjson shifts "$shifts" '. + [{name: $name, selectedShifts: $shifts}]' $submissions_file)
           echo "$updated_json" > $submissions_file
 
       - name: Commit and push changes
@@ -39,4 +39,4 @@ jobs:
           git commit -m "Add new submission from ${{ github.event.client_payload.name }}"
           git push
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PERSONAL_ACCESS_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
