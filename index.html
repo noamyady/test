@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="he">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +8,6 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            direction: rtl; /* Ensure table follows right-to-left direction */
         }
         td, th {
             border: 1px solid black;
@@ -42,10 +41,13 @@
         label {
             margin-right: 10px; /* Add spacing between label and input */
         }
+        h2 {
+            text-align: right; /* Align title to the right */
+        }
     </style>
 </head>
 <body>
-    <h2 style="text-align:right;">משמרות</h2>
+    <h2>משמרות</h2>
     <table id="shiftTable">
         <tr>
             <th>שבת</th>
@@ -58,33 +60,34 @@
             <th>משמרות</th>
         </tr>
         <tr>
-            <td class="clickable hidden-content">יום שבת<br>כפר שמריהו בוקר</td>
-            <td class="clickable hidden-content">יום שישי<br>כפר שמריהו בוקר</td>
-            <td class="clickable hidden-content">יום חמישי<br>כפר שמריהו בוקר</td>
-            <td class="clickable hidden-content">יום רביעי<br>כפר שמריהו בוקר</td>
-            <td class="clickable hidden-content">יום שלישי<br>כפר שמריהו בוקר</td>
-            <td class="clickable hidden-content">יום שני<br>כפר שמריהו בוקר</td>
-            <td class="clickable hidden-content">יום ראשון<br>כפר שמריהו בוקר</td>
+            <td class="clickable hidden-content">יום שבת כפר שמריהו בוקר</td>
+            <td class="clickable hidden-content">יום שישי כפר שמריהו בוקר</td>
+            <td class="clickable hidden-content">יום חמישי כפר שמריהו בוקר</td>
+            <td class="clickable hidden-content">יום רביעי כפר שמריהו בוקר</td>
+            <td class="clickable hidden-content">יום שלישי כפר שמריהו בוקר</td>
+            <td class="clickable hidden-content">יום שני כפר שמריהו בוקר</td>
+            <td class="clickable hidden-content">יום ראשון כפר שמריהו בוקר</td>
             <td rowspan="1" style="background-color: #ffeb99;">כפר שמריהו יום 7-19</td>
-        </tr>
-        <tr>
-            <td class="clickable hidden-content">יום שבת<br>כפר שמריהו לילה</td>
-            <td class="clickable hidden-content">יום שישי<br>כפר שמריהו לילה</td>
-            <td class="clickable hidden-content">יום חמישי<br>כפר שמריהו לילה</td>
-            <td class="clickable hidden-content">יום רביעי<br>כפר שמריהו לילה</td>
-            <td class="clickable hidden-content">יום שלישי<br>כפר שמריהו לילה</td>
-            <td class="clickable hidden-content">יום שני<br>כפר שמריהו לילה</td>
-            <td class="clickable hidden-content">יום ראשון<br>כפר שמריהו לילה</td>
+            </tr>
+            <tr>
+            <td class="clickable hidden-content">יום שבת כפר שמריהו לילה</td>
+            <td class="clickable hidden-content">יום שישי כפר שמריהו לילה</td>
+            <td class="clickable hidden-content">יום חמישי כפר שמריהו לילה</td>
+            <td class="clickable hidden-content">יום רביעי כפר שמריהו לילה</td>
+            <td class="clickable hidden-content">יום שלישי כפר שמריהו לילה</td>
+            <td class="clickable hidden-content">יום שני כפר שמריהו לילה</td>
+            <td class="clickable hidden-content">יום ראשון כפר שמריהו לילה</td>
             <td rowspan="1" style="background-color: #ffeb99;">כפר שמריהו לילה 19-7</td>
-        </tr>
-        <tr>
-            <td class="clickable hidden-content">יום שבת<br>מבשרת לילה</td>
-            <td class="clickable hidden-content">יום שישי<br>מבשרת לילה</td>
-            <td class="clickable hidden-content">יום חמישי<br>מבשרת לילה</td>
-            <td class="clickable hidden-content">יום רביעי<br>מבשרת לילה</td>
-            <td class="clickable hidden-content">יום שלישי<br>מבשרת לילה</td>
-            <td class="clickable hidden-content">יום שני<br>מבשרת לילה</td>
-            <td class="clickable hidden-content">יום ראשון<br>מבשרת לילה</td>
+            </tr>
+            <tr>
+            <td class="clickable hidden-content">יום שבת מבשרת לילה</td>
+            <td class="clickable hidden-content">יום שישי מבשרת לילה</td>
+            <td class="clickable hidden-content">יום חמישי מבשרת לילה</td>
+            <td class="clickable hidden-content">יום רביעי מבשרת לילה</td>
+            <td class="clickable hidden-content">יום שלישי מבשרת לילה</td>
+            <td class="clickable hidden-content">יום שני מבשרת לילה</td>
+<td class="clickable hidden-content">יום ראשון מבשרת לילה</td>
+
             <td rowspan="1" style="background-color: #cce5ff;">מבשרת ציון 19-7</td>
         </tr>
     </table>
