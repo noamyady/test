@@ -27,9 +27,6 @@
             background-color: green;
             color: white;
         }
-        td.hidden-content {
-            font-size: 0; /* Makes the text invisible to the user */
-        }
         .submit-section {
             margin-top: 20px;
             text-align: right; /* Align form elements to the right */
@@ -39,10 +36,11 @@
             padding: 10px 15px;
         }
         label {
-            margin-right: 10px; /* Add spacing between label and input */
+            margin-right: 10px;
         }
-        h2 {
-            text-align: right; /* Align title to the right */
+        #loadingSpinner {
+            display: none;
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -60,55 +58,37 @@
             <th>משמרות</th>
         </tr>
         <tr>
-            <td class="clickable hidden-content">יום שבת כפר שמריהו בוקר</td>
-            <td class="clickable hidden-content">יום שישי כפר שמריהו בוקר</td>
-            <td class="clickable hidden-content">יום חמישי כפר שמריהו בוקר</td>
-            <td class="clickable hidden-content">יום רביעי כפר שמריהו בוקר</td>
-            <td class="clickable hidden-content">יום שלישי כפר שמריהו בוקר</td>
-            <td class="clickable hidden-content">יום שני כפר שמריהו בוקר</td>
-            <td class="clickable hidden-content">יום ראשון כפר שמריהו בוקר</td>
+            <td class="clickable">יום שבת כפר שמריהו בוקר</td>
+            <td class="clickable">יום שישי כפר שמריהו בוקר</td>
+            <td class="clickable">יום חמישי כפר שמריהו בוקר</td>
+            <td class="clickable">יום רביעי כפר שמריהו בוקר</td>
+            <td class="clickable">יום שלישי כפר שמריהו בוקר</td>
+            <td class="clickable">יום שני כפר שמריהו בוקר</td>
+            <td class="clickable">יום ראשון כפר שמריהו בוקר</td>
             <td rowspan="1" style="background-color: #ffeb99;">כפר שמריהו יום 7-19</td>
-            </tr>
-            <tr>
-            <td class="clickable hidden-content">יום שבת כפר שמריהו לילה</td>
-            <td class="clickable hidden-content">יום שישי כפר שמריהו לילה</td>
-            <td class="clickable hidden-content">יום חמישי כפר שמריהו לילה</td>
-            <td class="clickable hidden-content">יום רביעי כפר שמריהו לילה</td>
-            <td class="clickable hidden-content">יום שלישי כפר שמריהו לילה</td>
-            <td class="clickable hidden-content">יום שני כפר שמריהו לילה</td>
-            <td class="clickable hidden-content">יום ראשון כפר שמריהו לילה</td>
+        </tr>
+        <tr>
+            <td class="clickable">יום שבת כפר שמריהו לילה</td>
+            <td class="clickable">יום שישי כפר שמריהו לילה</td>
+            <td class="clickable">יום חמישי כפר שמריהו לילה</td>
+            <td class="clickable">יום רביעי כפר שמריהו לילה</td>
+            <td class="clickable">יום שלישי כפר שמריהו לילה</td>
+            <td class="clickable">יום שני כפר שמריהו לילה</td>
+            <td class="clickable">יום ראשון כפר שמריהו לילה</td>
             <td rowspan="1" style="background-color: #ffeb99;">כפר שמריהו לילה 19-7</td>
-            </tr>
-            <tr>
-            <td class="clickable hidden-content">יום שבת מבשרת לילה</td>
-            <td class="clickable hidden-content">יום שישי מבשרת לילה</td>
-            <td class="clickable hidden-content">יום חמישי מבשרת לילה</td>
-            <td class="clickable hidden-content">יום רביעי מבשרת לילה</td>
-            <td class="clickable hidden-content">יום שלישי מבשרת לילה</td>
-            <td class="clickable hidden-content">יום שני מבשרת לילה</td>
-<td class="clickable hidden-content">יום ראשון מבשרת לילה</td>
-
-            <td rowspan="1" style="background-color: #cce5ff;">מבשרת ציון 19-7</td>
         </tr>
     </table>
 
-    <div class="submit-section" style="text-align: right;">
-        <form id="submitForm" dir="rtl">
+    <div class="submit-section">
+        <form id="submitForm">
             <label for="name">הזן שם:</label>
             <input type="text" id="name" required />
             <button type="submit">שלח</button>
         </form>
+        <div id="loadingSpinner">Submitting, please wait...</div>
     </div>
 
-    <!-- Include EmailJS SDK -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3.5.0/dist/email.min.js"></script>
-
-    <script type="text/javascript">
-        // Initialize EmailJS with your public key
-        (function() {
-            emailjs.init("W3ec09hnj7zvoLl4q"); // Replace with your actual user ID from EmailJS
-        })();
-
+    <script>
         // Handle table cell clicks
         document.querySelectorAll('.clickable').forEach(cell => {
             cell.addEventListener('click', function() {
@@ -120,28 +100,66 @@
         function getClickedCellsText() {
             let clickedCells = [];
             document.querySelectorAll('.clickable.green').forEach(cell => {
-                // The font-size is set to 0 so users don't see this text, but it's still there for email purposes
-                clickedCells.push(cell.innerHTML.trim());
+                clickedCells.push(cell.textContent.trim());
             });
-            return clickedCells.join('\n');
+            return clickedCells.join(', ');
+        }
+
+        // Sanitize user input to prevent any malicious code
+        function sanitizeInput(input) {
+            const temp = document.createElement('div');
+            temp.textContent = input;
+            return temp.innerHTML;
         }
 
         // Handle form submission
         document.getElementById('submitForm').addEventListener('submit', function(event) {
             event.preventDefault();
+            const name = sanitizeInput(document.getElementById('name').value);
+            const clickedCells = sanitizeInput(getClickedCellsText());
 
-            let name = document.getElementById('name').value;
-            let clickedCellsText = getClickedCellsText();
+            // Validation: Ensure name and shifts are provided
+            if (name.trim() === '' || clickedCells.length === 0) {
+                alert("Please fill in your name and select at least one shift.");
+                return;
+            }
 
-            // Send the email via EmailJS
-            emailjs.send("service_f7vkg2s", "template_g4t0c0l", {
-                from_name: name,
-                message: clickedCellsText  // Text content of clicked cells
-            }).then(function(response) {
-                alert("הטבלה נשלחה בהצלחה!");
-            }, function(error) {
-                console.error('Failed to send email:', error);  // Log detailed error
-                alert("שגיאה בשליחת המייל: " + JSON.stringify(error));  // Show detailed error info
+            // Disable the submit button to prevent multiple submissions
+            const submitButton = document.querySelector('button[type="submit"]');
+            submitButton.disabled = true;
+
+            // Show loading spinner
+            document.getElementById('loadingSpinner').style.display = 'block';
+
+            // Trigger GitHub Action via the GitHub API
+            fetch('https://api.github.com/repos/YOUR_USERNAME/YOUR_REPO/actions/workflows/form-submit.yml/dispatches', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/vnd.github.v3+json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    ref: 'main',
+                    inputs: {
+                        name: name,
+                        shifts: clickedCells
+                    }
+                })
+            }).then(response => {
+                // Hide loading spinner
+                document.getElementById('loadingSpinner').style.display = 'none';
+                submitButton.disabled = false;  // Re-enable the button
+
+                if (response.ok) {
+                    alert("הטבלה נשמרה בהצלחה ב-GitHub!");
+                } else {
+                    alert("שגיאה בשמירת הקובץ ב-GitHub.");
+                }
+            }).catch(error => {
+                // Hide loading spinner and re-enable the button
+                document.getElementById('loadingSpinner').style.display = 'none';
+                submitButton.disabled = false;
+                alert("שגיאה בשליחת הנתונים לשרת.");
             });
         });
     </script>
