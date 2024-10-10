@@ -132,7 +132,7 @@
             document.getElementById('loadingSpinner').style.display = 'block';
 
             // Trigger GitHub Action via the GitHub API
-            fetch('https://api.github.com/repos/YOUR_USERNAME/YOUR_REPO/actions/workflows/form-submit.yml/dispatches', {
+            fetch('https://api.github.com/repos/noamyady/test/actions/workflows/form-submit.yml/dispatches', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/vnd.github.v3+json',
