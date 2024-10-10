@@ -1,0 +1,41 @@
+name: Save Form Submission
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: "The name of the person submitting"
+        required: true
+        type: string
+      shifts:
+        description: "Shift data"
+        required: true
+        type: string
+
+jobs:
+  save_submission:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Append Form Submission to File
+      run: |
+        echo "Name: ${{ github.event.inputs.name }}" >> submissions/submission.txt
+        echo "Shifts: ${{ github.event.inputs.shifts }}" >> submissions/submission.txt
+        echo "---" >> submissions/submission.txt  # Separator for readability
+
+    - name: Commit changes
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_PAT }}  # Using GitHub Secrets
+      run: |
+        git config --global user.name "GitHub Actions Bot"
+        git config --global user.email "actions@github.com"
+        git add submissions/submission.txt
+        git commit -m "New submission from ${{ github.event.inputs.name }}"
+        git push
+
+    - name: Notify on failure
+      if: failure()
+      run: echo "An error occurred during the submission process."
