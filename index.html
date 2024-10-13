@@ -177,9 +177,11 @@ function highlightCurrentShift() {
     const [day, month] = lastDayDate.split('.'); // Split it into day and month
 
     const year = now.getFullYear(); // Get the current year
-    const lastDayOfFirstTable = new Date(`${year}-${month}-${day}T23:59:59`); // Create a date object
 
-    // Compare with the current date
+    // Create a Date object for the last day in the table, localized to Israel's time zone
+    const lastDayOfFirstTable = new Date(new Date(`${year}-${month}-${day}T23:59:59`).toLocaleString("en-US", { timeZone: "Asia/Jerusalem" }));
+
+    // Compare with the current date in Israel
     if (now > lastDayOfFirstTable) {
         document.querySelector('.schedule-container').style.display = 'none'; // Hide first table container
     }
@@ -187,6 +189,7 @@ function highlightCurrentShift() {
 
 window.onload = highlightCurrentShift;
 </script>
+
 
 </body>
 </html>
