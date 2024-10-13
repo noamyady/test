@@ -182,14 +182,17 @@ function highlightCurrentShift() {
 
         const year = now.getFullYear(); // Get the current year
 
-        // Create a Date object for 7 AM on the next day
+        // Create a Date object for 7 AM on the next day, explicitly setting the time to Israel's time zone
         const nextDayAt7AM = new Date(new Date(`${year}-${month}-${day}T07:00:00`).toLocaleString("en-US", { timeZone: "Asia/Jerusalem" }));
         nextDayAt7AM.setDate(nextDayAt7AM.getDate() + 1); // Move to the next day
 
-        console.log("Next day at 7 AM:", nextDayAt7AM); // Log to verify the date
+        // Recreate the date after setting the next day to ensure the correct time zone
+        const nextDayAt7AMIsrael = new Date(nextDayAt7AM.toLocaleString("en-US", { timeZone: "Asia/Jerusalem" }));
+
+        console.log("Next day at 7 AM (Israel):", nextDayAt7AMIsrael); // Log to verify the date
 
         // Compare with the current date in Israel
-        if (now > nextDayAt7AM) {
+        if (now > nextDayAt7AMIsrael) {
             document.querySelector('.schedule-container').style.display = 'none'; // Hide first table container
         }
     } else {
@@ -199,6 +202,7 @@ function highlightCurrentShift() {
 
 window.onload = highlightCurrentShift;
 </script>
+
 
 
 
