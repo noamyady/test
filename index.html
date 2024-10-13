@@ -171,24 +171,32 @@ function highlightCurrentShift() {
     }
 
     // Extract the date from the last column of the first table
-    const lastDayElement = document.querySelector('table:first-of-type th:last-child').innerHTML;
-    const lastDayParts = lastDayElement.split('<br>'); // Split the date part (e.g., "12.10")
-    const lastDayDate = lastDayParts[1]; // Get the date part (e.g., "12.10")
-    const [day, month] = lastDayDate.split('.'); // Split it into day and month
+    const lastDayElement = document.querySelector('table:first-of-type th:last-child');
+    
+    // Check if element is found
+    if (lastDayElement) {
+        console.log("Last day element found:", lastDayElement.innerHTML); // Log to see the content
+        const lastDayParts = lastDayElement.innerHTML.split('<br>'); // Split the date part (e.g., "12.10")
+        const lastDayDate = lastDayParts[1]; // Get the date part (e.g., "12.10")
+        const [day, month] = lastDayDate.split('.'); // Split it into day and month
 
-    const year = now.getFullYear(); // Get the current year
+        const year = now.getFullYear(); // Get the current year
 
-    // Create a Date object for the last day in the table, localized to Israel's time zone
-    const lastDayOfFirstTable = new Date(new Date(`${year}-${month}-${day}T23:59:59`).toLocaleString("en-US", { timeZone: "Asia/Jerusalem" }));
+        // Create a Date object for the last day in the table, localized to Israel's time zone
+        const lastDayOfFirstTable = new Date(new Date(`${year}-${month}-${day}T23:59:59`).toLocaleString("en-US", { timeZone: "Asia/Jerusalem" }));
 
-    // Compare with the current date in Israel
-    if (now > lastDayOfFirstTable) {
-        document.querySelector('.schedule-container').style.display = 'none'; // Hide first table container
+        // Compare with the current date in Israel
+        if (now > lastDayOfFirstTable) {
+            document.querySelector('.schedule-container').style.display = 'none'; // Hide first table container
+        }
+    } else {
+        console.error("Last day element not found.");
     }
 }
 
 window.onload = highlightCurrentShift;
 </script>
+
 
 
 </body>
