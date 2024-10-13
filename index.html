@@ -169,9 +169,24 @@ function highlightCurrentShift() {
             nightShift2Row.children[(columnIndex + 1) % 7].classList.add('highlight');
         }
     }
+
+    // Extract the date from the last column of the first table
+    const lastDayElement = document.querySelector('table:first-of-type th:last-child').innerHTML;
+    const lastDayParts = lastDayElement.split('<br>'); // Split the date part (e.g., "12.10")
+    const lastDayDate = lastDayParts[1]; // Get the date part (e.g., "12.10")
+    const [day, month] = lastDayDate.split('.'); // Split it into day and month
+
+    const year = now.getFullYear(); // Get the current year
+    const lastDayOfFirstTable = new Date(`${year}-${month}-${day}T23:59:59`); // Create a date object
+
+    // Compare with the current date
+    if (now > lastDayOfFirstTable) {
+        document.querySelector('.schedule-container').style.display = 'none'; // Hide first table container
+    }
 }
 
 window.onload = highlightCurrentShift;
-    </script>
+</script>
+
 </body>
 </html>
