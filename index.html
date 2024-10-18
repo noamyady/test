@@ -176,7 +176,6 @@ function highlightCurrentShift() {
     const lastDayElement = document.querySelector('table:first-of-type th:nth-last-child(8)');
     
     if (lastDayElement) {
-        console.log("Last day element found:", lastDayElement.innerHTML); 
         const lastDayParts = lastDayElement.innerHTML.split('<br>'); 
         const lastDayDate = lastDayParts[1]; 
         const [day, month] = lastDayDate.split('.'); 
@@ -189,10 +188,6 @@ function highlightCurrentShift() {
 
         // Recreate the date after setting the next day to ensure the correct time zone
         const nextDayAt7AMIsrael = new Date(nextDayAt7AM.toLocaleString("en-US", { timeZone: "Asia/Jerusalem" }));
-
-        // Display the current time and set trigger time in the console
-        console.log("Current time (Israel):", now);
-        console.log("Set trigger time (7 AM next day, Israel):", nextDayAt7AMIsrael);
 
         // Display the current time and trigger time on the page
         const indicator = document.createElement('div');
@@ -214,6 +209,7 @@ function highlightCurrentShift() {
 
 window.onload = highlightCurrentShift;
 </script>
+
 
 
 
