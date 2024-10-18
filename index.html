@@ -171,7 +171,7 @@ function highlightCurrentShift() {
     }
 
     // Extract the date from the last valid column (before "משמרות")
-    const lastDayElement = document.querySelector('table:first-of-type th:nth-last-child(8)'); // second to last 'th' column before "משמרות"
+    const lastDayElement = document.querySelector('table:first-of-type th:nth-last-child(6)'); // second to last 'th' column before "משמרות"
     
     // Check if element is found
     if (lastDayElement) {
@@ -183,7 +183,7 @@ function highlightCurrentShift() {
         const year = now.getFullYear(); // Get the current year
 
         // Create a Date object for 7 AM on the next day, explicitly setting the time to Israel's time zone
-        const nextDayAt7AM = new Date(new Date(`${year}-${month}-${day}T07:00:00`).toLocaleString("en-US", { timeZone: "Asia/Jerusalem" }));
+        const nextDayAt7AM = new Date(new Date(`${year}-${month}-${day}T04:03:00`).toLocaleString("en-US", { timeZone: "Asia/Jerusalem" }));
         nextDayAt7AM.setDate(nextDayAt7AM.getDate() + 1); // Move to the next day
 
         // Recreate the date after setting the next day to ensure the correct time zone
