@@ -1,207 +1,148 @@
-<meta charset="UTF-8">
 <!DOCTYPE html>
-<html lang="en">
+<html lang="he">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weekly Shift Schedule</title>
+    <title>Shift Schedule</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            height: auto;
-            background-color: #f4f4f4;
-        }
-        .schedule-container {
-            width: 90%;
-            max-width: 800px;
-            background: #fff;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-        }
-        h1 {
-            text-align: center;
-            color: #333;
-        }
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
         }
-        th, td {
-            padding: 10px;
-            border: 1px solid #ddd;
+        td, th {
+            border: 1px solid black;
+            width: 100px;
+            height: 50px;
             text-align: center;
             vertical-align: middle;
         }
         th {
-            background-color: #f7f7f7;
+            background-color: #d3d3d3;
         }
-        .yellow {
-            background-color: #fde9b8;
+        td.clickable {
+            background-color: white;
+            cursor: pointer;
         }
-        .blue {
-            background-color: #c6e2ff;
+        td.green {
+            background-color: green;
+            color: white;
         }
-        .highlight {
-            background-color: #a8d5a5;  
+        td.hidden-content {
+            font-size: 0;
         }
-        a {
-            text-decoration: none;
-            color: #333;
-            font-weight: bold;
+        .submit-section {
+            margin-top: 20px;
+            text-align: right;
         }
-        a:hover {
-            color: #ff0000;
+        button {
+            margin-top: 10px;
+            padding: 10px 15px;
+        }
+        label {
+            margin-right: 10px;
+        }
+        h2 {
+            text-align: right;
         }
     </style>
 </head>
 <body>
-    <div class="schedule-container">
-        <h1>משמרות שבועיות</h1>
-        <table>
-            <tr>
-                <th>שבת<br>19.10</th><th>שישי<br>18.10</th><th>חמישי<br>17.10</th><th>רביעי<br>16.10</th>
-                <th>שלישי<br>15.10</th><th>שני<br>14.10</th><th>ראשון<br>13.10</th><th>משמרות</th>
-            </tr>
-            <tr id="morning-shift-2" class="yellow">
-                <td><a href="https://wa.me/{{phone7_1}}" target="_blank"><a href="https://wa.me/972544542223" target="_blank">יהלי<br>ברונר</a></a></td>
-                <td><a href="https://wa.me/{{phone6_1}}" target="_blank"><a href="https://wa.me/972523543828" target="_blank">גל<br>ורטהיימר</a></a></td>
-                <td><a href="https://wa.me/{{phone5_1}}" target="_blank"><a href="https://wa.me/972526837999" target="_blank">עידן<br>טרביס</a></a></td>
-                <td><a href="https://wa.me/{{phone4_1}}" target="_blank"><a href="https://wa.me/972526837999" target="_blank">עידן<br>טרביס</a></a></td>
-                <td><a href="https://wa.me/{{phone3_1}}" target="_blank"><a href="https://wa.me/972523543828" target="_blank">גל<br>ורטהיימר</a></a></td>
-                <td><a href="https://wa.me/{{phone2_1}}" target="_blank"><a href="https://wa.me/972526071266" target="_blank">אביחי<br>ברטוב</a></a></td>
-                <td><a href="https://wa.me/{{phone1_1}}" target="_blank"><a href="https://wa.me/972526071266" target="_blank">אביחי<br>ברטוב</a></a></td>
-                <td rowspan="1" class="yellow">כפר שמריהו<br>בוקר<br>7:00-19:00</td>
-            </tr>
-            <tr id="night-shift-3" class="yellow">
-                <td><a href="https://wa.me/{{phone7_2}}" target="_blank"><a href="https://wa.me/972556668848" target="_blank">נועם<br>ידעי</a></a></td>
-                <td><a href="https://wa.me/{{phone6_2}}" target="_blank"><a href="https://wa.me/972526837999" target="_blank">עידן<br>טרביס</a></a></td>
-                <td><a href="https://wa.me/{{phone5_2}}" target="_blank"><a href="https://wa.me/972556668848" target="_blank">נועם<br>ידעי</a></a></td>
-                <td><a href="https://wa.me/{{phone4_2}}" target="_blank"><a href="https://wa.me/972544542223" target="_blank">יהלי<br>ברונר</a></a></td>
-                <td><a href="https://wa.me/{{phone3_2}}" target="_blank"><a href="https://wa.me/972544542223" target="_blank">יהלי<br>ברונר</a></a></td>
-                <td><a href="https://wa.me/{{phone2_2}}" target="_blank"><a href="https://wa.me/972528027802" target="_blank">אביב<br>פרימור</a></a></td>
-                <td><a href="https://wa.me/{{phone1_2}}" target="_blank"><a href="https://wa.me/972542550534" target="_blank">בר<br>שטלמן</a></a></td>
-                <td rowspan="1" class="yellow">כפר שמריהו<br>לילה<br>19:00-7:00</td>
-            </tr>
-            <tr id="night-shift-4" class="blue">
-                <td><a href="https://wa.me/{{phone7_3}}" target="_blank"><a href="https://wa.me/972502150408" target="_blank">יובל<br>ידעי</a></a></td>
-                <td><a href="https://wa.me/{{phone6_3}}" target="_blank"><a href="https://wa.me/972556668848" target="_blank">נועם<br>ידעי</a></a></td>
-                <td><a href="https://wa.me/{{phone5_3}}" target="_blank"><a href="https://wa.me/972533340717" target="_blank">נשיאל<br>עזרא</a></a></td>
-                <td><a href="https://wa.me/{{phone4_3}}" target="_blank"><a href="https://wa.me/972507963697" target="_blank">רועי<br>גולדשטיין</a></a></td>
-                <td><a href="https://wa.me/{{phone3_3}}" target="_blank"><a href="https://wa.me/972533340717" target="_blank">נשיאל<br>עזרא</a></a></td>
-                <td><a href="https://wa.me/{{phone2_3}}" target="_blank"><a href="https://wa.me/972502150408" target="_blank">יובל<br>ידעי</a></a></td>
-                <td><a href="https://wa.me/{{phone1_3}}" target="_blank"><a href="https://wa.me/972556668848" target="_blank">נועם<br>ידעי</a></a></td>
-                <td rowspan="1" class="blue">מבשרת ציון<br>לילה<br>19:00-7:00</td>
-            </tr>
-        </table>
-    </div>
+    <h2>משמרות</h2>
+    <table id="shiftTable">
+        <tr>
+            <th>שבת</th>
+            <th>שישי</th>
+            <th>חמישי</th>
+            <th>רביעי</th>
+            <th>שלישי</th>
+            <th>שני</th>
+            <th>ראשון</th>
+            <th>משמרות</th>
+        </tr>
+        <tr>
+            <td class="clickable hidden-content">יום שבת כפר שמריהו בוקר</td>
+            <td class="clickable hidden-content">יום שישי כפר שמריהו בוקר</td>
+            <td class="clickable hidden-content">יום חמישי כפר שמריהו בוקר</td>
+            <td class="clickable hidden-content">יום רביעי כפר שמריהו בוקר</td>
+            <td class="clickable hidden-content">יום שלישי כפר שמריהו בוקר</td>
+            <td class="clickable hidden-content">יום שני כפר שמריהו בוקר</td>
+            <td class="clickable hidden-content">יום ראשון כפר שמריהו בוקר</td>
+            <td rowspan="1" style="background-color: #ffeb99;">כפר שמריהו יום 7-19</td>
+        </tr>
+        <tr>
+            <td class="clickable hidden-content">יום שבת כפר שמריהו לילה</td>
+            <td class="clickable hidden-content">יום שישי כפר שמריהו לילה</td>
+            <td class="clickable hidden-content">יום חמישי כפר שמריהו לילה</td>
+            <td class="clickable hidden-content">יום רביעי כפר שמריהו לילה</td>
+            <td class="clickable hidden-content">יום שלישי כפר שמריהו לילה</td>
+            <td class="clickable hidden-content">יום שני כפר שמריהו לילה</td>
+            <td class="clickable hidden-content">יום ראשון כפר שמריהו לילה</td>
+            <td rowspan="1" style="background-color: #ffeb99;">כפר שמריהו לילה 19-7</td>
+        </tr>
+        <tr>
+            <td class="clickable hidden-content">יום שבת מבשרת לילה</td>
+            <td class="clickable hidden-content">יום שישי מבשרת לילה</td>
+            <td class="clickable hidden-content">יום חמישי מבשרת לילה</td>
+            <td class="clickable hidden-content">יום רביעי מבשרת לילה</td>
+            <td class="clickable hidden-content">יום שלישי מבשרת לילה</td>
+            <td class="clickable hidden-content">יום שני מבשרת לילה</td>
+            <td class="clickable hidden-content">יום ראשון מבשרת לילה</td>
+            <td rowspan="1" style="background-color: #cce5ff;">מבשרת ציון 19-7</td>
+        </tr>
+    </table>
 
-   <div class="schedule-container">
-        <h1>משמרות לשבוע הבא</h1>
-        <table>
-            <tr>
-                <th>שבת<br>26.10</th><th>שישי<br>25.10</th><th>חמישי<br>24.10</th><th>רביעי<br>23.10</th>
-                <th>שלישי<br>22.10</th><th>שני<br>21.10</th><th>ראשון<br>20.10</th><th>משמרות</th>
-            </tr>
-            <tr id="morning-shift-5" class="yellow">
-                <td><a href="https://wa.me/{{phone7_4}}" target="_blank"><a href="https://wa.me/972523543828" target="_blank">גל<br>ורטהיימר</a></a></td>
-                <td><a href="https://wa.me/{{phone6_4}}" target="_blank"><a href="https://wa.me/972526837999" target="_blank">עידן<br>טרביס</a></a></td>
-                <td><a href="https://wa.me/{{phone5_4}}" target="_blank"><a href="https://wa.me/972533343459" target="_blank">עומר<br>שחם</a></a></td>
-                <td><a href="https://wa.me/{{phone4_4}}" target="_blank"><a href="https://wa.me/972556668848" target="_blank">נועם<br>ידעי</a></a></td>
-                <td><a href="https://wa.me/{{phone3_4}}" target="_blank"><a href="https://wa.me/972556668848" target="_blank">נועם<br>ידעי</a></a></td>
-                <td><a href="https://wa.me/{{phone2_4}}" target="_blank"><a href="https://wa.me/972526071266" target="_blank">אביחי<br>ברטוב</a></a></td>
-                <td><a href="https://wa.me/{{phone1_4}}" target="_blank"><a href="https://wa.me/972546686466" target="_blank">הראל<br>דימבורט</a></a></td>
-                <td rowspan="1" class="yellow">כפר שמריהו<br>בוקר<br>7:00-19:00</td>
-            </tr>
-            <tr id="night-shift-6" class="yellow">
-                <td><a href="https://wa.me/{{phone7_5}}" target="_blank"><a href="https://wa.me/972556668848" target="_blank">נועם<br>ידעי</a></a></td>
-                <td><a href="https://wa.me/{{phone6_5}}" target="_blank"><a href="https://wa.me/972544542223" target="_blank">יהלי<br>ברונר</a></a></td>
-                <td><a href="https://wa.me/{{phone5_5}}" target="_blank"><a href="https://wa.me/972544542223" target="_blank">יהלי<br>ברונר</a></a></td>
-                <td><a href="https://wa.me/{{phone4_5}}" target="_blank"><a href="https://wa.me/972526837999" target="_blank">עידן<br>טרביס</a></a></td>
-                <td><a href="https://wa.me/{{phone3_5}}" target="_blank"><a href="https://wa.me/972542550534" target="_blank">בר<br>שטלמן</a></a></td>
-                <td><a href="https://wa.me/{{phone2_5}}" target="_blank"><a href="https://wa.me/972542550534" target="_blank">בר<br>שטלמן</a></a></td>
-                <td><a href="https://wa.me/{{phone1_5}}" target="_blank"><a href="https://wa.me/972523115171" target="_blank">אביחי<br>שושן</a></a></td>
-                <td rowspan="1" class="yellow">כפר שמריהו<br>לילה<br>19:00-7:00</td>
-            </tr>
-            <tr id="night-shift-4" class="blue">
-                <td><a href="https://wa.me/{{phone7_6}}" target="_blank"><a href="https://wa.me/972533340717" target="_blank">נשיאל<br>עזרא</a></a></td>
-                <td><a href="https://wa.me/{{phone6_6}}" target="_blank"><a href="https://wa.me/972507963697" target="_blank">רועי<br>גולדשטיין</a></a></td>
-                <td><a href="https://wa.me/{{phone5_6}}" target="_blank"><a href="https://wa.me/972502150408" target="_blank">יובל<br>ידעי</a></a></td>
-                <td><a href="https://wa.me/{{phone4_6}}" target="_blank"><a href="https://wa.me/972533340717" target="_blank">נשיאל<br>עזרא</a></a></td>
-                <td><a href="https://wa.me/{{phone3_6}}" target="_blank"><a href="https://wa.me/972584434241" target="_blank">יאיר<br>מלך מאור</a></a></td>
-                <td><a href="https://wa.me/{{phone2_6}}" target="_blank"><a href="https://wa.me/972502150408" target="_blank">יובל<br>ידעי</a></a></td>
-                <td><a href="https://wa.me/{{phone1_6}}" target="_blank"><a href="https://wa.me/972584434241" target="_blank">יאיר<br>מלך מאור</a></a></td>
-                <td rowspan="1" class="blue">מבשרת ציון<br>לילה<br>19:00-7:00</td>
-            </tr>
-        </table>
+    <div class="submit-section">
+        <form id="submitForm">
+            <label for="name">הזן שם:</label>
+            <input type="text" id="name" required />
+            <button type="submit">שלח</button>
+        </form>
     </div>
 
     <script>
-function highlightCurrentShift() {
-    const now = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Jerusalem" }));
-    const currentHour = now.getHours();
-    const currentDay = now.getDay();
-    const columnIndex = 6 - currentDay;
+        // Handle table cell clicks
+        document.querySelectorAll('.clickable').forEach(cell => {
+            cell.addEventListener('click', function() {
+                this.classList.toggle('green');
+            });
+        });
 
-    const morningShiftRow = document.getElementById('morning-shift-2');
-    const nightShift1Row = document.getElementById('night-shift-3');
-    const nightShift2Row = document.getElementById('night-shift-4');
-
-    const allCells = document.querySelectorAll('td');
-    allCells.forEach(cell => cell.classList.remove('highlight-day', 'highlight-night'));
-
-    if (currentHour >= 7 && currentHour < 19) {
-        morningShiftRow.children[columnIndex].classList.add('highlight');
-    } else {
-        if (currentHour >= 19) {
-            nightShift1Row.children[columnIndex].classList.add('highlight');
-            nightShift2Row.children[columnIndex].classList.add('highlight');
-        } else {
-            nightShift1Row.children[(columnIndex + 1) % 7].classList.add('highlight');
-            nightShift2Row.children[(columnIndex + 1) % 7].classList.add('highlight');
+        // Get clicked cells' text content
+        function getClickedCellsText() {
+            let clickedCells = [];
+            document.querySelectorAll('.clickable.green').forEach(cell => {
+                clickedCells.push(cell.textContent.trim());
+            });
+            return clickedCells.join(', ');
         }
-    }
 
-    // Extract the date from the last valid column (before "משמרות")
-    const lastDayElement = document.querySelector('table:first-of-type th:nth-last-child(6)'); // second to last 'th' column before "משמרות"
-    
-    // Check if element is found
-    if (lastDayElement) {
-        console.log("Last day element found:", lastDayElement.innerHTML); // Log to see the content
-        const lastDayParts = lastDayElement.innerHTML.split('<br>'); // Split the date part (e.g., "12.10")
-        const lastDayDate = lastDayParts[1]; // Get the date part (e.g., "12.10")
-        const [day, month] = lastDayDate.split('.'); // Split it into day and month
+        // Handle form submission
+        document.getElementById('submitForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const clickedCells = getClickedCellsText();
 
-        const year = now.getFullYear(); // Get the current year
-
-        // Create a Date object for 7 AM on the next day, explicitly setting the time to Israel's time zone
-        const nextDayAt7AM = new Date(new Date(`${year}-${month}-${day}T04:03:00`).toLocaleString("en-US", { timeZone: "Asia/Jerusalem" }));
-        nextDayAt7AM.setDate(nextDayAt7AM.getDate() + 1); // Move to the next day
-
-        // Recreate the date after setting the next day to ensure the correct time zone
-        const nextDayAt7AMIsrael = new Date(nextDayAt7AM.toLocaleString("en-US", { timeZone: "Asia/Jerusalem" }));
-
-        console.log("Next day at 7 AM (Israel):", nextDayAt7AMIsrael); // Log to verify the date
-
-        // Compare with the current date in Israel
-        if (now > nextDayAt7AMIsrael) {
-            document.querySelector('.schedule-container').style.display = 'none'; // Hide first table container
-        }
-    } else {
-        console.error("Last day element not found.");
-    }
-}
-
-window.onload = highlightCurrentShift;
-</script>
-
+            // Send the data to the Google Apps Script via POST request
+            fetch('https://script.google.com/macros/s/YOUR_WEB_APP_URL/exec', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams({
+                    name: name,
+                    shifts: clickedCells
+                })
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert("הטבלה נשלחה בהצלחה!");
+                } else {
+                    alert("שגיאה בשליחת הנתונים לשרת.");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("שגיאה בשליחת הנתונים לשרת.");
+            });
+        });
+    </script>
 </body>
 </html>
