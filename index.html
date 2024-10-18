@@ -92,15 +92,30 @@
     </table>
 
     <div class="submit-section">
-    <form id="submitForm">
-        <label for="name">הזן שם:</label>
-        <input type="text" id="name" dir="rtl" required /> <!-- Added dir="rtl" -->
-        <button type="submit">שלח</button>
-    </form>
-</div>
-
+        <form id="submitForm">
+            <label for="name">הזן שם:</label>
+            <input type="text" id="name" dir="rtl" required />
+            <button type="submit">שלח</button>
+        </form>
+    </div>
 
     <script>
+        // Sanitize user input to prevent XSS attacks
+        function sanitizeInput(input) {
+            const temp = document.createElement('div');
+            temp.textContent = input;  // Convert to a safe text format
+            return temp.innerHTML;     // Return sanitized content
+        }
+
+        // Validate user input (name length)
+        function validateInput(name) {
+            if (name.length < 1 || name.length > 50) {
+                alert('השם צריך להיות בין תו אחד ל-50 תווים.');
+                return false;
+            }
+            return true;
+        }
+
         // Handle table cell clicks
         document.querySelectorAll('.clickable').forEach(cell => {
             cell.addEventListener('click', function() {
@@ -120,8 +135,15 @@
         // Handle form submission
         document.getElementById('submitForm').addEventListener('submit', function(event) {
             event.preventDefault();
-            const name = document.getElementById('name').value;
-            const clickedCells = getClickedCellsText();
+
+            let name = document.getElementById('name').value;
+            name = sanitizeInput(name);  // Sanitize the user's name
+
+            if (!validateInput(name)) {
+                return;  // Stop submission if input is not valid
+            }
+
+            const clickedCells = getClickedCellsText();  // Get selected shifts
 
             // Send the data to the Google Apps Script via POST request
             fetch('https://script.google.com/macros/s/AKfycbzx7n3CZwIf9K-ROupxqNgG2-JZd6IPbf2mYd-iuxJMpa7vo14yj6AsxB0Hue6ouadhTw/exec', {
