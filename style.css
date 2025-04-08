@@ -1,0 +1,73 @@
+/* איפוס עקרונות בסיסיים */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f2f2f2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+/* עיצוב קונטיינר הטפסים */
+.login-container {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 320px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  text-align: center;
+}
+
+/* כותרות */
+.login-container h1,
+.login-container h2 {
+  margin-bottom: 1rem;
+}
+
+/* עיצוב הטפסים */
+form {
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+form label {
+  display: block;
+  margin: 0.5rem 0 0.25rem;
+}
+
+form input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+/* עיצוב כפתורים */
+form button {
+  width: 100%;
+  padding: 0.75rem;
+  border: none;
+  background: #0d6efd;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+form button:hover {
+  background: #0b5ed7;
+}
+
+/* קו מפריד בין טפסי ההתחברות להרשמה */
+.divider {
+  height: 2px;
+  background: #ccc;
+  margin: 1rem 0;
+}
