@@ -1,4 +1,4 @@
-// ייבוא מודולים מ-Firebase (גרסה מודולרית – Firebase v9+)
+// ייבוא המודולים מ-Firebase (גרסה מודולרית – Firebase v9+)
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
 import {
   getAuth,
@@ -6,7 +6,7 @@ import {
   createUserWithEmailAndPassword
 } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 
-// קונפיגורציית Firebase – שימו לב שהנתונים נלקחים מהמידע שסיפקת
+// קונפיגורציית Firebase – יש לוודא שהקונפיגורציה זהה בכל הדפים
 const firebaseConfig = {
   apiKey: "AIzaSyBvhdmhh12h2qbl99385j3iRKR9EEw01HU",
   authDomain: "sparta-m.firebaseapp.com",
@@ -31,9 +31,9 @@ loginForm.addEventListener("submit", (e) => {
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // המשתמש התחבר בהצלחה
-      alert("התחברת בהצלחה!");
       console.log("משתמש שהתחבר:", userCredential.user);
-      // כאן ניתן להוסיף הפניה לדף פנימי או טיפול במצב משתמש מאומת
+      // לאחר התחברות מוצלחת, מפנים לעמוד המרכזי
+      window.location.href = "main.html";
     })
     .catch((error) => {
       alert("שגיאה בהתחברות: " + error.message);
@@ -51,9 +51,9 @@ signupForm.addEventListener("submit", (e) => {
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // המשתמש נרשם בהצלחה
-      alert("הרשמתך בוצעה בהצלחה!");
       console.log("משתמש נרשם:", userCredential.user);
-      // ניתן להוסיף הפניה לאזור מאומת או לשלוח אימייל לאימות
+      // לאחר הרשמה מוצלחת, מפנים לעמוד המרכזי
+      window.location.href = "main.html";
     })
     .catch((error) => {
       alert("שגיאה בהרשמה: " + error.message);
